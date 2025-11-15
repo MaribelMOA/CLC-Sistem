@@ -6,20 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up(): void {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('diagnoses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('code')->nullable()->index();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('role', 20)->default('RECEPTION')->index();
+            $table->text('description')->nullable();
+            $table->string('category')->nullable()->index();
             $table->boolean('is_active')->default(true);
-            $table->string('specialty')->nullable();
-            $table->string('license_number')->nullable()->index();
-            $table->rememberToken();
             $table->timestamps();
         });
     }
     public function down(): void {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('diagnoses');
     }
 };
+
