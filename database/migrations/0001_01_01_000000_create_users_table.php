@@ -15,6 +15,10 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
             $table->string('specialty')->nullable();
             $table->string('license_number')->nullable()->index();
+
+            // PARA PRUEBAS NO FALLEN
+            $table->timestamp('email_verified_at')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
