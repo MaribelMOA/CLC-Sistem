@@ -106,8 +106,6 @@ export default function Dashboard({ auth }: DashboardProps) {
   );
 
   const handleStartConsultation = (patientId: string) => {
-    // Más adelante aquí puedes usar Inertia para ir a una ruta real:
-    // router.visit(route('consultations.create', { patient: patientId }));
     console.log("Iniciar consulta para paciente", patientId);
   };
 
@@ -242,14 +240,12 @@ export default function Dashboard({ auth }: DashboardProps) {
 
         {/* Grid principal */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Próximas consultas - solo DOCTOR */}
           {isDoctor && (
             <div className="bg-white rounded-2xl shadow-sm p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold text-gray-900">
                   Siguientes Consultas
                 </h2>
-                {/* Más adelante se puede apuntar a una ruta real */}
                 <Link
                   href="#"
                   className="text-blue-600 hover:text-blue-700 text-sm font-medium"
@@ -392,112 +388,148 @@ export default function Dashboard({ auth }: DashboardProps) {
             </div>
           </div>
 
-          {/* Accesos rápidos (para roles que NO son doctor, por ejemplo admin / recepción) */}
-          {!isDoctor && (
-            <div className="bg-white rounded-2xl shadow-sm p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                Accesos Rápidos
-              </h2>
+        {/* Accesos rápidos*/}
+        {/* No doctor*/}
+        {!isDoctor && (
+        <div className="bg-white rounded-2xl shadow-sm p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">
+            Accesos Rápidos
+            </h2>
 
-              <div className="grid grid-cols-2 gap-4">
-                <Link
-                  href="#"
-                  className="p-4 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors text-center"
+            <div className="grid grid-cols-2 gap-4">
+            {/* Pacientes */}
+            <Link
+                href="#"
+                className="p-4 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors text-center"
+            >
+                <div className="w-8 h-8 bg-blue-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                 >
-                  <div className="w-8 h-8 bg-blue-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                    <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                </svg>
+                </div>
+                <p className="text-sm font-medium text-gray-900">Pacientes</p>
+            </Link>
+
+            {/* recepcion */}
+            {isReception && (
+                <Link
+                href="#"
+                className="p-4 bg-green-50 hover:bg-green-100 rounded-xl transition-colors text-center"
+                >
+                <div className="w-8 h-8 bg-green-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
                     <svg
-                      className="w-4 h-4 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                     >
-                      <path
+                    <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
                     </svg>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900">Pacientes</p>
+                </div>
+                <p className="text-sm font-medium text-gray-900">
+                    Nueva Consulta
+                </p>
                 </Link>
+            )}
 
-                {isReception && (
-                  <Link
-                    href="#"
-                    className="p-4 bg-green-50 hover:bg-green-100 rounded-xl transition-colors text-center"
-                  >
-                    <div className="w-8 h-8 bg-green-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                        />
-                      </svg>
-                    </div>
-                    <p className="text-sm font-medium text-gray-900">
-                      Nueva Consulta
-                    </p>
-                  </Link>
-                )}
-
-                <Link
-                  href="#"
-                  className="p-4 bg-purple-50 hover:bg-purple-100 rounded-xl transition-colors text-center"
+            {/* Catálogo */}
+            <Link
+                href="#"
+                className="p-4 bg-purple-50 hover:bg-purple-100 rounded-xl transition-colors text-center"
+            >
+                <div className="w-8 h-8 bg-purple-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                 >
-                  <div className="w-8 h-8 bg-purple-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                    <svg
-                      className="w-4 h-4 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-                      />
-                    </svg>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Catálogo
-                  </p>
-                </Link>
+                    <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                    />
+                </svg>
+                </div>
+                <p className="text-sm font-medium text-gray-900">
+                Catálogo
+                </p>
+            </Link>
 
-                <Link
-                  href="#"
-                  className="p-4 bg-red-50 hover:bg-red-100 rounded-xl transition-colors text-center"
+            {/* Cirugías */}
+            <Link
+                href="#"
+                className="p-4 bg-orange-50 hover:bg-orange-100 rounded-xl transition-colors text-center"
+            >
+                <div className="w-8 h-8 bg-orange-500 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                 >
-                  <div className="w-8 h-8 bg-red-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                    <svg
-                      className="w-4 h-4 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900">
-                    Auditoría
-                  </p>
-                </Link>
-              </div>
+                    <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                </svg>
+                </div>
+                <p className="text-sm font-medium text-gray-900">
+                Cirugías
+                </p>
+            </Link>
+
+            {/* Auditoría */}
+            <Link
+                href="#"
+                className="p-4 bg-red-50 hover:bg-red-100 rounded-xl transition-colors text-center"
+            >
+                <div className="w-8 h-8 bg-red-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                </svg>
+                </div>
+                <p className="text-sm font-medium text-gray-900">
+                Auditoría
+                </p>
+            </Link>
             </div>
-          )}
+        </div>
+        )}
         </div>
       </div>
     </div>
